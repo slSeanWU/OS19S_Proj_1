@@ -24,3 +24,5 @@ int proc_kickout(pid_t pid);
 
 // bring another child to run
 int proc_resume(pid_t pid);
+
+#endif
