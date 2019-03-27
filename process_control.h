@@ -8,6 +8,7 @@ typedef struct{
     int ready_time;
     int exec_time;
     pid_t pid;
+    int pipe_fd[2];
 }Process;
 
 // defines one unit of time
