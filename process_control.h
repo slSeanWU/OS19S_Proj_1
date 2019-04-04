@@ -12,7 +12,7 @@ typedef struct{
 }Process;
 
 // defines one unit of time
-void TIME_UNIT(void);
+void inline TIME_UNIT(void);
 
 // core: 0 for scheduler, 1 for child processes
 int assign_core(pid_t pid, int core);
