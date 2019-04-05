@@ -57,6 +57,7 @@ pid_t proc_create(Process chld){
 
         Time_sp start, end;
         char dmesg[256];
+        printf("%s %d\n", chld.name, getpid());
 
         syscall(SYS_GET_TIME, &start);
         while( chld.exec_time > 0 ){
