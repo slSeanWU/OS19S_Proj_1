@@ -41,11 +41,6 @@ int assign_core(pid_t pid, int core){
 }
 
 pid_t proc_create(Process chld){
-    if ( pipe(chld.pipe_fd) < 0 ){
-        perror("error: pipe");
-        exit(1);
-    }
-
     pid_t chpid = fork();
     if ( chpid < 0 ){
         perror("error: fork");
