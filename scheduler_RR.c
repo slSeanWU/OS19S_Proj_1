@@ -5,7 +5,7 @@
 #include "scheduler.h"
 #include "process_control.h"
 
-int schuduler_RR(Process *proc, int N_procs){
+int scheduler_RR(Process *proc, int N_procs){
 
 	pid_t chpids[N_procs];
 
