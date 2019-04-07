@@ -54,7 +54,7 @@ pid_t proc_create(Process chld){
         char dmesg[256];
         printf("%s %d\n", chld.name, getpid());
 
-        syscall(SYS_GET_TIME, &start);
+        start = syscall(SYS_GET_TIME);
         while( chld.exec_time > 0 ){
             // synchronize with scheduler
             char buf[8];
@@ -64,7 +64,7 @@ pid_t proc_create(Process chld){
             chld.exec_time--;
             fprintf(stderr, "%s, rounds left %d\n", chld.name, chld.exec_time);
         }
-        syscall(SYS_GET_TIME, &end);
+        end = syscall(SYS_GET_TIME);
 
         sprintf(dmesg, "[Project1] %d %09lu.%09lu %09lu.%09lu\n",
                 getpid(), start.tv_sec, start.tv_nsec, end.tv_sec, end.tv_nsec);
