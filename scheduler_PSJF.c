@@ -42,7 +42,7 @@ int scheduler_PSJF(Process *proc, int N_procs){
 			}
 
 			// tell child process to run 1 time unit
-			char tmp = "run";
+			char tmp[5] = "run";
 			write(proc[target].pipe_fd[1], tmp, strlen(tmp));
 			proc[target].exec_time--;		
 			proc_kickout(proc[target]);

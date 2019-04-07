@@ -8,9 +8,6 @@
 
 #include "process_control.h"
 
-typedef struct sched_param Sched_pm;
-typedef struct timespec Time_sp;
-
 int time = 0;
 
 int find_shortest(Process *proc, int N_procs){
@@ -38,7 +35,7 @@ int scheduler_SJF(Process *proc, int N_procs){
 
 			while (proc[target].exec_time > 0){
 				// tell child process to run 1 time unit
-				char tmp = "run";
+				char tmp[5] = "run";
 				write(proc[target].pipe_fd[1], tmp, strlen(tmp));
 				
 				TIME_UNIT();
