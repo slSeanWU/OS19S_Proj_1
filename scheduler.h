@@ -11,9 +11,9 @@ Given to scheduler:
    2. number of processes
 */
 
-int schuduler_FIFO(Process *proc, int N_procs);
-int schuduler_RR(Process *proc, int N_procs);
-int schuduler_SJF(Process *proc, int N_procs);
-int schuduler_RSJF(Process *proc, int N_procs);
+int scheduler_FIFO(Process *proc, int N_procs);
+int scheduler_RR(Process *proc, int N_procs);
+int scheduler_SJF(Process *proc, int N_procs);
+int scheduler_PSJF(Process *proc, int N_procs);
 
 #endif
