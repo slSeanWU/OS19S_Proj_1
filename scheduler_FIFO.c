@@ -5,7 +5,7 @@
 #include "scheduler.h"
 #include "process_control.h"
 
-int schuduler_FIFO(Process *proc, int N_procs){
+int scheduler_FIFO(Process *proc, int N_procs){
 
 	int cur = -1;
 
