@@ -17,6 +17,7 @@ int main(){
 	for(int i = 0 ; i < n ; i++){
 		Process *tmp = (proc + i);
 		scanf("%s%d%d", tmp -> name, &(tmp -> ready_time), &(tmp -> exec_time));
+		tmp -> pid = -1; // initialize pid
 		if(pipe((tmp -> pipe_fd)) < 0){
 			perror("error: pipe");
 			exit(1);
