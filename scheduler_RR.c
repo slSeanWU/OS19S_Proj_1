@@ -21,7 +21,7 @@ int scheduler_RR(Process *proc, int N_procs){
 		int nt = 0; // number of processes not allowed to be executed
 		int next_ex_t = INT_MAX; //the closest ready time from current time (used when nt == N_procs)
 
-		for(int i=1; i<N_procs; i++){
+		for(int i=0; i<N_procs; i++){
 
 			if( cur_t < proc[i].ready_time ){
 				if( proc[i].ready_time < next_ex_t ) next_ex_t = proc[i].ready_time;
