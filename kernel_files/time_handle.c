@@ -4,16 +4,15 @@
 
 /* function to get time of day */
 /* syscall number 548 */
-asmlinkage struct timespec sys_get_current_time(void){
-	struct timespec t;
-	getnstimeofday(&t);
-	return t;
+asmlinkage long sys_get_current_time(struct timespec *tsp){
+	getnstimeofday(tsp);
+	return 0;
 }
 
 /* function to print string to kernel */
 /* syscall number 549 */
-asmlinkage void sys_print_string(char s[256]){
+asmlinkage long sys_print_string(char *s){
 	printk("%s", s);
-	return;
+	return 0;
 }
 
