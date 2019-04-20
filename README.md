@@ -7,5 +7,4 @@
 
 ## II. Kernel and Syscall Informations
 * Using kernel version 4.17.4
-* syscall 548: get timespec from getnstimeofday
-* syscall 549: print string to kernel
+* syscall 333: print a user-space string to kernel
