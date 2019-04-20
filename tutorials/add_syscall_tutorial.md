@@ -24,7 +24,7 @@ With lots of tests and errors, this is how I succeeded:
 
 ### 1. Add system call number to reference table
 Add something like this in *arch/x86/entry/syscalls/syscall_64.tbl*:
-![k1](https://github.com/slSeanWU/OS19S_Proj_1/edit/master/tutorials/k1.png)
+![k1](./k1.png)
 
 The first column is the system call's number. Use a number that hasn't been used.
 The second column says that this system call is common to both 32-bit and 64-bit CPUs.
@@ -153,7 +153,7 @@ Compile and run it:
 You'll see your string with dmesg:
 `dmesg`
 
-![k2](https://github.com/slSeanWU/OS19S_Proj_1/edit/master/tutorials/k2.png)
+![k2](./k2.png)
 
 And syscall returns 0, meaning you have succeeded.
 Congrats!
