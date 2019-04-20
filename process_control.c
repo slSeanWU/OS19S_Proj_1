@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sched.h>
 #include <time.h>
 #include <errno.h>
@@ -9,8 +10,7 @@
 
 #include "process_control.h"
 
-#define SYS_GET_TIME 548 
-#define SYS_PRINT_STR 549
+#define SYS_PRINT_STR 333
 
 typedef struct sched_param Sched_pm;
 typedef struct timespec Time_sp;
@@ -54,7 +54,10 @@ pid_t proc_create(Process chld){
         char dmesg[256];
         printf("%s %d\n", chld.name, getpid());
 
-        start = syscall(SYS_GET_TIME);
+        if( clock_gettime(CLOCK_REALTIME, &start) == -1 ){
+            perror("error: clock_gettime");
+            exit(3);
+        }
         while( chld.exec_time > 0 ){
             // synchronize with scheduler
             char buf[8];
@@ -64,11 +67,14 @@ pid_t proc_create(Process chld){
             chld.exec_time--;
             fprintf(stderr, "%s, rounds left %d\n", chld.name, chld.exec_time);
         }
-        end = syscall(SYS_GET_TIME);
+        if( clock_gettime(CLOCK_REALTIME, &end) == -1 ){
+            perror("error: clock_gettime");
+            exit(3);
+        }
 
         sprintf(dmesg, "[Project1] %d %09lu.%09lu %09lu.%09lu\n",
                 getpid(), start.tv_sec, start.tv_nsec, end.tv_sec, end.tv_nsec);
-        syscall(SYS_PRINT_STR, dmesg);
+        syscall(SYS_PRINT_STR, dmesg, strlen(dmesg));
 
         exit(0);
     }
@@ -103,4 +109,3 @@ int proc_resume(pid_t pid){
 
     return 0;
 }
-
