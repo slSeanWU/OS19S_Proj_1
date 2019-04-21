@@ -7,6 +7,20 @@
 #include "process_control.h"
 #include "quicksort.c"
 
+int CMP(const void *a, const void *b){
+	Process *c = (Process *)a;
+	Process *d = (Process *)b;
+	
+	if( c->ready_time < d->ready_time )
+		return -1;
+	else if( c->ready_time > d->ready_time )
+		return 1;
+	else if( c->exec_time < d->exec_time )
+		return -1;
+	else
+		return 1;
+}
+
 int main(){
 	char SP[8];
 	int n;
@@ -24,9 +38,8 @@ int main(){
 		}
 	}
 
-	quickSort(proc, 0, n - 1);
+	qsort(proc, n, sizeof(Process), CMP);
 	assign_core(getpid(), 0);
-
 
 	if(strcmp(SP, "FIFO") == 0){
 		scheduler_FIFO(proc, n);
