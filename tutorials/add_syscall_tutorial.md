@@ -128,7 +128,7 @@ Don't change anything if you are not sure what this is.
 
 Then:
 
-`make -j 4 && make install_modules -j 4 && make install -j 4`
+`make -j 4 && make modules_install -j 4 && make install -j 4`
 
 Argument `-j 4` specifies how many cores (4 in this case) you want to use when compiling. It might speed up your compile process.
 
@@ -138,11 +138,11 @@ Then update your kernel when compiling is done.
 
 If this is your first time to comile:
 
-`update-initarmfs -c -k 4.17.4`
+`update-initramfs -c -k 4.17.4`
 
 If you have already compiled:
 
-`update-initarmfs -u`
+`update-initramfs -u`
 
 
 
