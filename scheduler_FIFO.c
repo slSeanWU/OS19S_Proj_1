@@ -21,6 +21,7 @@ int scheduler_FIFO(Process *proc, int N_procs){
 			// wait 1 time unit until proc is ready
 			total_time += 1;
 		}
+		proc_resume( chpid );
 		while( proc[cur].exec_time > 0 ){
 			// tell process to run 1 time unit
 			write(proc[cur].pipe_fd[1], "run", strlen("run"));
