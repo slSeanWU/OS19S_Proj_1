@@ -49,20 +49,24 @@ pid_t proc_create(Process chld){
 
     if ( chpid == 0 ){ // emulate child processes
         close( chld.pipe_fd[1] );
+        int init_exec_time = chld.exec_time;
 
         Time_sp start, end;
         char dmesg[256];
-        printf("%s %d\n", chld.name, getpid());
 
-        if( clock_gettime(CLOCK_REALTIME, &start) == -1 ){
-            perror("error: clock_gettime");
-            exit(3);
-        }
         while( chld.exec_time > 0 ){
             // synchronize with scheduler
             char buf[8];
             read(chld.pipe_fd[0], buf, 8);
-
+            
+            if( chld.exec_time == init_exec_time ){
+                if( clock_gettime(CLOCK_REALTIME, &start) == -1 ){
+                    perror("error: clock_gettime");
+                    exit(3);
+                }
+                printf("%s %d\n", chld.name, getpid());
+            }
+            
             TIME_UNIT();
             chld.exec_time--;
             fprintf(stderr, "%s, rounds left %d\n", chld.name, chld.exec_time);
