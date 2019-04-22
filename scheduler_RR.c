@@ -11,7 +11,7 @@
 
 int scheduler_RR(Process *proc, int N_procs){
 
-	pid_t chpids[N_procs] = {0};
+	// pid_t chpids[N_procs] = {0};
 
 	int N_fin = 0; //number of finished processes
 	int cur_t = 0; //current time
@@ -32,14 +32,14 @@ int scheduler_RR(Process *proc, int N_procs){
 				continue;
 			} 
 
-			if( chpids[i] > 0 ){
-				proc_resume(chpid[i]);
+			if( proc[i].pid > 0 ){
+				proc_resume( proc[i].pid );
 			}else{ // if process hasn't been created
-				chpids[i] = proc_create(proc[cur]);
+				proc[i].pid = proc_create( proc[i] );
 			}
 
 			// run an RR round
-			int kt = 500; //time quantum for RR
+			int kt = RR_SLICE; //time quantum for RR
 			while( proc[i].exec_time > 0 && kt > 0){
 				write(proc[i].pipe_fd[1], "run", strlen("run")); // tell process to run 1 time unit
 				TIME_UNIT(); // run 1 time unit itself
