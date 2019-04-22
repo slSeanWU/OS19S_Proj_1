@@ -36,6 +36,7 @@ int scheduler_RR(Process *proc, int N_procs){
 				proc_resume( proc[i].pid );
 			}else{ // if process hasn't been created
 				proc[i].pid = proc_create( proc[i] );
+				proc_resume( proc[i].pid );
 			}
 
 			// run an RR round
