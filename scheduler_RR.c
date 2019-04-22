@@ -52,14 +52,14 @@ int scheduler_RR(Process *proc, int N_procs){
 			// if process finished
 			if(proc[i].exec_time <= 0){
 				int re_status;
-				waitpid(chpids[i], &re_status, 0);
+				waitpid(proc[i].pid, &re_status, 0);
 				if( !(WIFEXITED(re_status)) ){
 					perror("error: child process terminated inappropriately");
 					return 1;
 				}
 				N_fin ++;
 			}else{
-				proc_kickout(chpids[i]);				
+				proc_kickout( proc[i].pid );				
 			}
 
 		}

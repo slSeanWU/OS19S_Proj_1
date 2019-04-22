@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -15,12 +17,12 @@ int scheduler_FIFO(Process *proc, int N_procs){
 		cur += 1;
 		if( cur >= N_procs ) break;
 
-		pid_t chpid = proc_create(proc[cur]);
 		while( proc[cur].ready_time > total_time ){
 			TIME_UNIT();
 			// wait 1 time unit until proc is ready
 			total_time += 1;
 		}
+		pid_t chpid = proc_create(proc[cur]);
 		proc_resume( chpid );
 		while( proc[cur].exec_time > 0 ){
 			// tell process to run 1 time unit

@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,12 +54,12 @@ pid_t proc_create(Process chld){
         int init_exec_time = chld.exec_time;
 
         Time_sp start, end;
-        char dmesg[256];
+        char dmesg[256] = "";
 
         while( chld.exec_time > 0 ){
             // synchronize with scheduler
             char buf[8];
-            read(chld.pipe_fd[0], buf, 8);
+            read(chld.pipe_fd[0], buf, strlen("run"));
             
             if( chld.exec_time == init_exec_time ){
                 if( clock_gettime(CLOCK_REALTIME, &start) == -1 ){
@@ -78,7 +80,8 @@ pid_t proc_create(Process chld){
 
         sprintf(dmesg, "[Project1] %d %09lu.%09lu %09lu.%09lu\n",
                 getpid(), start.tv_sec, start.tv_nsec, end.tv_sec, end.tv_nsec);
-        syscall(SYS_PRINT_STR, dmesg, strlen(dmesg));
+	printf("len of dmesg: %d\n", (int)strlen(dmesg));
+        syscall(SYS_PRINT_STR, dmesg, strlen(dmesg)+1);
 
         exit(0);
     }
