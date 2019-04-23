@@ -4,17 +4,17 @@
 #include <limits.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/syscall.h>
 
 #include "process_control.h"
 
-int time = 0;
 
-int find_shortest(Process *proc, int N_procs){
+int find_shortest(Process *proc, int N_procs, int time){
 	int shortest = -1, excute_time = INT_MAX;
 
 	for (int i = 0; i < N_procs; i++){
-		if (proc.ready_time < time && proc[i].exec_time && proc[i].exec_time < excute_time){
+		if (proc[i].ready_time < time && proc[i].exec_time && proc[i].exec_time < excute_time){
 			excute_time = proc[i].exec_time;
 			shortest = i;
 		}
@@ -25,12 +25,14 @@ int find_shortest(Process *proc, int N_procs){
 
 int scheduler_SJF(Process *proc, int N_procs){
 	int finish = 0;
-	
+	int time = 0;
+
 	while (finish < N_procs){
-		int target = find_shortest(proc, N_procs);
+		int target = find_shortest(proc, N_procs, time);
 		
 		if (target != -1){
-			pid_t chpid = process_create(proc[target]);
+			pid_t chpid = proc_create(proc[target]);
+			proc_resume( chpid );
 			proc[target].pid = chpid;
 
 			while (proc[target].exec_time > 0){
@@ -50,7 +52,7 @@ int scheduler_SJF(Process *proc, int N_procs){
 			
 			if (WIFEXITED(_return) != 1){
 				fprintf(stderr, "error: child process terminated inappropriately");
-				return 0;
+				return 1;
 			}
 		}
 
@@ -60,5 +62,5 @@ int scheduler_SJF(Process *proc, int N_procs){
 		}
 	}
 
-	return 1;
+	return 0;
 }
