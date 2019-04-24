@@ -1,0 +1,16 @@
+process P1, start at 100
+process P1, end at 3100
+process P4, start at 3100
+process P4, end at 3110
+process P5, start at 3110
+process P5, end at 3120
+process P6, start at 3120
+process P6, end at 7120
+process P7, start at 7120
+process P7, end at 11120
+process P2, start at 11120
+process P2, end at 16120
+process P3, start at 16120
+process P3, end at 23120
+process P8, start at 23120
+process P8, end at 32120
