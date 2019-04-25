@@ -15,10 +15,8 @@ int CMP(const void *a, const void *b){
 		return -1;
 	else if( c->ready_time > d->ready_time )
 		return 1;
-	else if( c->exec_time < d->exec_time )
-		return -1;
-	else
-		return 1;
+	else 
+		return strcmp(c->name, d->name);
 }
 
 int main(){
@@ -39,7 +37,10 @@ int main(){
 	}
 
 	qsort(proc, n, sizeof(Process), CMP);
-	assign_core(getpid(), 0);
+	assign_core(getpid(), SCHED_CORE);
+
+	for(int i = 0 ; i < n ; i++)
+		printf("%s %d %d\n", proc[i].name, proc[i].ready_time, proc[i].exec_time);
 
 	if(strcmp(SP, "FIFO") == 0){
 		scheduler_FIFO(proc, n);
@@ -47,7 +48,7 @@ int main(){
 	else if(strcmp(SP, "RR") == 0){
 		scheduler_RR(proc, n);
 	}
-	else if(strcmp(SP, "SJF") == 0){
+	if(strcmp(SP, "SJF") == 0){
 		scheduler_SJF(proc, n);
 	}
 	else if(strcmp(SP, "PSJF") == 0){

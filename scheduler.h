@@ -5,6 +5,10 @@
 // maximum time units in Round-Robin policy
 #define RR_SLICE 500
 
+// assign different core to scheduler/processes
+#define SCHED_CORE 2
+#define CHILD_CORE 3
+
 /* 
 Given to scheduler:
    1. details of each process

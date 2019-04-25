@@ -71,7 +71,9 @@ pid_t proc_create(Process chld){
             
             TIME_UNIT();
             chld.exec_time--;
+#ifdef PRINT_CHLD
             fprintf(stderr, "%s, rounds left %d\n", chld.name, chld.exec_time);
+#endif
         }
         if( clock_gettime(CLOCK_REALTIME, &end) == -1 ){
             perror("error: clock_gettime");
@@ -80,14 +82,16 @@ pid_t proc_create(Process chld){
 
         sprintf(dmesg, "[Project1] %d %09lu.%09lu %09lu.%09lu\n",
                 getpid(), start.tv_sec, start.tv_nsec, end.tv_sec, end.tv_nsec);
+#ifdef PRINT_CHLD
 	printf("len of dmesg: %d\n", (int)strlen(dmesg));
+#endif
         syscall(SYS_PRINT_STR, dmesg, strlen(dmesg)+1);
 
         exit(0);
     }
     
     proc_kickout(chpid);
-    assign_core(chpid, 1);
+    assign_core(chpid, CHILD_CORE);
     close( chld.pipe_fd[0] );
 
     return chpid;
