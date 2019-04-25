@@ -11,6 +11,7 @@
 #include <sys/syscall.h>
 
 #include "process_control.h"
+#include "scheduler.h"
 
 #define SYS_PRINT_STR 333
 
