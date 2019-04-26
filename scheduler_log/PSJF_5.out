@@ -1,0 +1,10 @@
+process P1, start at 100
+process P1, end at 200
+process P3, start at 200
+process P3, end at 400
+process P2, start at 400
+process P2, end at 4400
+process P4, start at 4400
+process P4, end at 8400
+process P5, start at 8400
+process P5, end at 15400

@@ -1,0 +1,12 @@
+process P1, start at 0
+process P2, start at 1000
+process P2, end at 2000
+process P1, resume at 2000
+process P1, end at 4000
+process P3, start at 4000
+process P4, start at 5000
+process P4, end at 7000
+process P5, start at 7000
+process P5, end at 8000
+process P3, resume at 8000
+process P3, end at 11000
