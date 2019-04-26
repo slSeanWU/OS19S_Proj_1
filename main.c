@@ -48,7 +48,7 @@ int main(){
 	else if(strcmp(SP, "RR") == 0){
 		scheduler_RR(proc, n);
 	}
-	if(strcmp(SP, "SJF") == 0){
+	else if(strcmp(SP, "SJF") == 0){
 		scheduler_SJF(proc, n);
 	}
 	else if(strcmp(SP, "PSJF") == 0){
