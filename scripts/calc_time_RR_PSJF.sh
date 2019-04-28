@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
+# This script takes the timing details from dmesg and
+# calculates each tasks converted finish time
+
+# Specially tailored for RR and PSJF logs
+
 input=$1
-qt=0.001727558
+qt=0.001727558  # length of time unit measured with get_time.sh
 begin=0.0
 first=65536
 
