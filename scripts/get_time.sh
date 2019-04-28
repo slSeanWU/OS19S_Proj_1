@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-input="kernel_log/base_Sean1"
+# This scripts help measure the estimated length of each time unit
+
+input="kernel_log/base_Sean"
 accum=0.0
 
 while IFS= read -r line
