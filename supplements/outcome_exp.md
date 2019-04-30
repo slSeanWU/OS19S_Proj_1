@@ -1,21 +1,36 @@
-### Reasons Why Actual Outputs are Different from Theoretical Ones
+## Testing Environment is the Cause of  Differences between Actual Outputs and Theoretical Outputs
 
 #### Outcome
 
-We know that inaccuracy were inevitable because of other processes' disturbance, CPU properties and scheduling policies, and other numerous reasons. However, there are some "big ones" that resulted in our actual outcome data, meaning that the scale of difference, actual output devided by theoretical output, went up to around 10%.
+We know that inaccuracy were inevitable because of other processes' disturbance, CPU properties and scheduling policies, and other numerous reasons. These factors are parts of the testing environment.
 
-#### Possible reasons
+In our tests, we noticed that there are some "big ones" that resulted in our actual outcome data, meaning that the scale of difference, actual output divided by theoretical output, went up to around 10%. These faults seems to show failure in our test results. However, we will show you that, it is **still these environment factors** that cause the inaccuracies.
 
-The real CPU scheduler that runs the entire machine is much more smarter than what we have created. When the process that we created is doing the same things, it becomes more predictable, and makes real CPU job scheduling more easy to be done, resulting in a shorter process execution time.
+#### Independence of Process Execution Time
 
-The test outcome of FIFO_2 supports this theory. Below is the result of FIFO_2:
+Let us consider one of the experiments that we have done on FIFO_2:
 
 ![Form1](./g1.png)
 
-Plotting the *real vs theoretical execution time* bar graph:
+
+
+Plotting the *real vs theoretical execution time* bar graph from the above form:
 
 ![graph1](./g2.png)
 
-In the above graph, we can see that the real execution time diverges when execution time grows. Because we simulate each tasks with simple loops, the number of loops is directly proportional to the execution time with respect to each process. When real scheduler notices these identical loops, it can speed up the execution since it has already recognized a simple job pattern.
+In the above graph, we can see that the real execution time diverges from the theoretical one when time grows, and it seems that there is a correlation between *difference* and *execution time*. 
 
-The key thing is, we are using the average execution time of FIFO_1 test data to measure a time unit. Every process in FIFO_1 only lasts for 500 time units. When it comes to other test data, processes last longer. Longer the process runs, more significant the speed up effect is.
+Nevertheless, if we plot the real divergence in percentage ( difference / (Theo. Ex. time) * 100% ):
+
+![graph2](P:./g3.png)
+
+We can see that there are no actual correlation between divergence and execution time. Also, we noticed that the difference rate at any given execution time are similar. The key thing is, we are using the average execution time of a particular test case to measure a time unit. This leads to a reasonable assumption: we are using the wrong time unit. In other words: *The time unit that we use for testing is not a suitable one in the testing environment **at the time we are testing.***
+
+Another experiment conducted at a different time on the same input (FIFO_2) supports this idea:
+
+![Form2](./g4.png)
+
+
+
+The above experiment is much more accurate, and there are no modifications between these two experiments. The only thing changed is the environment. Thus we have proved our main idea: *Testing Environment is the Cause of  Differences between Actual Outputs and Theoretical Outputs.*
+
