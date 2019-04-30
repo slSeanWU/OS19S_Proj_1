@@ -5,7 +5,6 @@
 
 #include "scheduler.h"
 #include "process_control.h"
-#include "quicksort.c"
 
 int CMP(const void *a, const void *b){
 	Process *c = (Process *)a;
@@ -18,6 +17,13 @@ int CMP(const void *a, const void *b){
 	else 
 		return strcmp(c->name, d->name);
 }
+
+/*
+Function of main.c:
+1. Read input
+2. Sort by processes' ready_time
+3. Call corresponding scheduler
+*/
 
 int main(){
 	char SP[8];
@@ -38,9 +44,11 @@ int main(){
 
 	qsort(proc, n, sizeof(Process), CMP);
 	assign_core(getpid(), SCHED_CORE);
-
+	
+#ifdef PRINT_PROC
 	for(int i = 0 ; i < n ; i++)
 		printf("%s %d %d\n", proc[i].name, proc[i].ready_time, proc[i].exec_time);
+#endif
 
 	if(strcmp(SP, "FIFO") == 0){
 		scheduler_FIFO(proc, n);
